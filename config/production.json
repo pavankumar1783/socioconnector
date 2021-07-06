@@ -1,0 +1,6 @@
+{
+    "mongoURI" :"mongodb+srv://MernStack1:pavan123@cluster0.zfoys.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret" : "secrettoken",
+    "githubClientId":"ab5e2e375a36448226f7",
+    "githubSecret" : "0b883d642e3bc8a298243c2cbcb16271c63c025a"
+}

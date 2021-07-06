@@ -1,10 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const db = require('./config/db');
+const path = require('path')
 
 const app = express();
-
-// DB Config
-const db = require('./config/db');
 
 // Connect to MongoDB
 db()
@@ -12,15 +10,20 @@ db()
 //INIT Middleware
 app.use(express.json( {extended : false } ) )
 
-
-
-app.get('/', (req, res) => res.send('Hello World'));
-
 // Use Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/auth', require('./routes/api/auth'))
+
+// SERVE Static Assets in Production
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+
+    app.get('*', (req,res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const port = process.env.PORT || 5000;
 
