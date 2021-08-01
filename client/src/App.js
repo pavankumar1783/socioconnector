@@ -14,6 +14,7 @@ import AddExperience from './components/profile-forms/AddExperience'
 import AddEducation from './components/profile-forms/AddEducation'
 import Posts from './components/posts/Posts'
 import Post from './components/post/Post'
+import PageNotFound from './components/PageNotFound'
 import PrivateRoute from './components/routing/PrivateRoute'
 
 
@@ -31,12 +32,12 @@ if(localStorage.token) {
 }
 
 const App = () => {
-  useEffect(() => {
-    store.dispatch(loadUser())
-  }, [])
-
+       useEffect(() => {
+          store.dispatch(loadUser())
+       }, [])
   return (
   <Provider store={store}>
+    <title>SocioConnector</title>
     <Router>
       <Fragment>
         <Navbar />
@@ -55,6 +56,7 @@ const App = () => {
             <PrivateRoute exact path= '/add-education' component={AddEducation} />
             <PrivateRoute exact path= '/posts' component={Posts} />
             <PrivateRoute exact path='/posts/:id' component={Post} />
+            <Route component={PageNotFound} />
           </Switch>
         </section>
       </Fragment>
