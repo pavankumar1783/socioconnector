@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const config=require('config')
 const { check, validationResult } = require('express-validator')
 const User = require('../../models/User')
+const auth = require('../../middleware/auth')
 
 // @route  Post  api/users  
 // @desc   Register users
@@ -71,5 +72,29 @@ router.post(
         }
     }
 )
+
+//GET ALL USERS
+router.get('/', auth, async (req,res) => {
+    try {
+        const users=await User.find().select('-password')
+        return res.json(users)
+    } catch (e) {
+        console.log(e.message)
+        res.status(500).send('Server Error')
+    }
+} )
+
+//GET Users by Usernames
+router.get('/:name', auth, async (req,res) => {
+    try{
+        const x= req.params.name
+        const users = await User.find({name: { $regex: '.*' + x + '.*', $options:"i" } })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        if(users.length>0)
+            return res.json(users)
+        res.status(400).json({msg : 'Users not Found'})
+    } catch(e) {
+        res.status(500).send('Server Error')
+    }
+})
 
 module.exports= router

@@ -2,19 +2,17 @@ import axios from 'axios'
 import { setAlert } from './alert'
 import {
     GET_PROFILE,
-    GET_PROFILES,
-    GET_REPOS,
-    PROFILE_ERROR,
     UPDATE_PROFILE,
+    GET_REPOS,
     CLEAR_PROFILE,
-    ACCOUNT_DELETED
+    ACCOUNT_DELETED,
+    PROFILE_ERROR
 } from './types'
 
 //Get Current Users Profile
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentUserProfile = () => async dispatch => {
     try {
         const res= await axios.get('/api/profile/me')
-
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -28,28 +26,13 @@ export const getCurrentProfile = () => async dispatch => {
     }
 }
 
-// Get all Profiles
-export const getProfiles = () => async dispatch => {
-    dispatch({ type: CLEAR_PROFILE})
-    try {
-        const res= await axios.get('/api/profile')
-        dispatch({
-            type: GET_PROFILES,
-            payload: res.data
-        })
-    } catch (e) {
-        console.log(e)
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: {msg: e.response.statusText, status: e.response.status}
-        })
-    }
-}
 //Get Profile by Id
 export const getProfileById = (userId) => async dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE
+    })
     try {
         const res= await axios.get(`/api/profile/user/${userId}`)
-
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -62,6 +45,7 @@ export const getProfileById = (userId) => async dispatch => {
         })
     }
 }
+                                                                                                                                                                                                                                                                                                      
 
 //Get Github repos
 export const getGithubRepos = (username) => async dispatch => {

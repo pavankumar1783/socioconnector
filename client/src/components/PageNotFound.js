@@ -6,7 +6,7 @@ const PageNotFound = props => {
     return (
         <div>
             <p><b><h1 className='large'>Page 404 Not Found</h1></b></p>
-            <p>Go Back to <Link to='dashboard'>Home</Link> </p>
+            <p>Go Back to <Link to='/dashboard'>Home</Link> </p>
         </div>
     )
 }

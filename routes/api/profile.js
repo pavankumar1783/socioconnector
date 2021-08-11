@@ -98,6 +98,7 @@ router.post('/',
 router.get('/', async (req,res) => {
     try {
         const profiles = await Profile.find().populate('user',['name','avatar'])
+        profiles.map(profile => console.log(profile.user))
         res.json(profiles)
     } catch (e) {
         console.log(e.message)
@@ -105,10 +106,13 @@ router.get('/', async (req,res) => {
     }
 })
 
+
+
 // Public Get a User by Id
 router.get('/user/:user_id', async (req,res) => {
     try {
-        const profile = await Profile.findOne({user : req.params.user_id}).populate('user',['name','avatar'])
+        const profile = await Profile.findOne({user : req.params.user_id})
+                        .populate('user',['name','avatar'])
         if(!profile) {
             return res.status(400).json({msg : 'Profile Not Found'})
         }
@@ -120,9 +124,12 @@ router.get('/user/:user_id', async (req,res) => {
     }
 })
 
+
+
 //Private Delete Profile , User and Posts
 router.delete('/' , auth , async(req,res) => {
     try {
+
         await Post.deleteMany({user: req.user.id})
         await Profile.findOneAndDelete({user:req.user.id})
         await User.findOneAndDelete({_id : req.user.id})
@@ -259,6 +266,7 @@ router.get('/github/:username',(req,res) => {
         res.status(500).send('Server Error')
     }
 })
+
 
 
 

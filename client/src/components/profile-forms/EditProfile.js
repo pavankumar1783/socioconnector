@@ -2,9 +2,9 @@ import React, {Fragment, useState, useEffect    } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createProfile, getCurrentProfile } from '../../actions/profile'
+import { createProfile, getCurrentUserProfile } from '../../actions/profile'
 
-const EditProfile = ({ profile: {profile,loading}, createProfile, getCurrentProfile, history }) => {
+const EditProfile = ({ profile: {profile,loading}, createProfile, getCurrentUserProfile, history }) => {
     const [formData, setFormData]= useState({
         company: '',
         website: '',
@@ -23,7 +23,7 @@ const EditProfile = ({ profile: {profile,loading}, createProfile, getCurrentProf
     const [displaySocialInputs, toggleSocialInputs] = useState(false)
 
     useEffect(() => {
-        getCurrentProfile()
+        getCurrentUserProfile()
         setFormData({
             company: loading || !profile.company ? '' : profile.company,
             website: loading || !profile.website ? '' : profile.website,
@@ -38,7 +38,7 @@ const EditProfile = ({ profile: {profile,loading}, createProfile, getCurrentProf
             youtube: loading || !profile.social ? '' : profile.social.youtube,
             instagram: loading || !profile.social ? '' : profile.social.instagram
         })
-    },[getCurrentProfile,loading])
+    },[getCurrentUserProfile,loading])
 
     const {
         company,
@@ -194,7 +194,7 @@ const EditProfile = ({ profile: {profile,loading}, createProfile, getCurrentProf
 
 EditProfile.propTypes = {
     createProfile: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
+    getCurrentUserProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired
 }
 
@@ -202,4 +202,4 @@ const mapStateToProps= state => ({
     profile: state.profile
 })
 
-export default connect(mapStateToProps,{ createProfile, getCurrentProfile })(withRouter(EditProfile))
+export default connect(mapStateToProps,{ createProfile, getCurrentUserProfile })(withRouter(EditProfile))

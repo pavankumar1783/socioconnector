@@ -9,6 +9,7 @@ const Login = ({login, isAuthenticated}) => {
         email : '',
         password : '',
     })
+
     const {email , password } = formData
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
@@ -19,7 +20,7 @@ const Login = ({login, isAuthenticated}) => {
 
     //Redirect if logged in
     if(isAuthenticated){
-      return <Redirect to="/dashboard" />
+      return <Redirect to="/posts" />
     }
 
     return (

@@ -22,4 +22,8 @@ export const ADD_POST='ADD_POST'
 export const GET_POST='GET_POST'
 export const ADD_COMMENT='ADD_COMMENT'
 export const REMOVE_COMMENT='REMOVE_COMMENT'
+export const GET_PROFILES_BY_NAME='GET_PROFILES_BY_NAME'
+export const GET_USERS='GET_USERS'
+export const GET_USERS_BY_SEARCH='GET_USERS_BY_SEARCH'
+export const USER_ERROR='USER_ERROR'
 

@@ -9,7 +9,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     CLEAR_PROFILE,
-    LOGOUT
+    LOGOUT,
+    GET_PROFILE
 } from './types'
 
 export const loadUser = () => async dispatch => {
